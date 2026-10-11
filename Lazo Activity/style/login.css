@@ -1,0 +1,689 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: #07080d;
+  color: #d1d5e0;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  background-image:
+    radial-gradient(ellipse at 20% 10%, rgba(139, 92, 246, 0.12), transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(184, 29, 58, 0.1), transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(232, 185, 35, 0.04), transparent 60%);
+}
+
+/* ----- TYPOGRAPHY ----- */
+h1, h2, h3, .logo-font {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.02em;
+}
+
+/* ----- CARD & PANEL STYLES (frosted / dark) ----- */
+.auth-card {
+  background: linear-gradient(160deg, #101320, #0b0e18);
+  border: 1px solid rgba(232, 185, 35, 0.18);
+  border-radius: 16px;
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.9), 0 0 40px rgba(139, 92, 246, 0.08);
+  padding: 2rem 2.25rem;
+  backdrop-filter: blur(2px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.auth-card:hover {
+  box-shadow: 0 35px 90px -18px rgba(0, 0, 0, 0.95), 0 0 50px rgba(232, 185, 35, 0.1);
+}
+
+/* ----- BRAND / LOGO ----- */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: 'Cinzel', serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  text-decoration: none;
+  color: #fff;
+  letter-spacing: 0.05em;
+  justify-content: center;
+  margin-bottom: 1.75rem;
+}
+
+.brand i {
+  color: #e8b923;
+  font-size: 1.9rem;
+  filter: drop-shadow(0 0 10px rgba(232, 185, 35, 0.6));
+}
+
+.brand span {
+  color: #e8b923;
+}
+
+/* ----- TABS (pure CSS using radio buttons) ----- */
+.auth-tabs {
+  position: relative;
+  display: flex;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 50px;
+  padding: 0.35rem;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.auth-tabs input[type="radio"] {
+  display: none;
+}
+
+.auth-tabs label {
+  flex: 1;
+  text-align: center;
+  border-radius: 50px;
+  padding: 0.7rem 1rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #8a93a8;
+  background: transparent;
+  border: none;
+  transition: all 0.25s ease;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  user-select: none;
+}
+
+.auth-tabs label:hover {
+  color: #d1d5e0;
+}
+
+/* Active tab styling via :checked */
+#tab-signin:checked ~ .auth-tabs label[for="tab-signin"],
+#tab-register:checked ~ .auth-tabs label[for="tab-register"] {
+  background: linear-gradient(135deg, #e8b923, #ff6b35);
+  color: #0b0e18;
+  box-shadow: 0 6px 18px rgba(232, 185, 35, 0.3);
+}
+
+/* ----- PANES (shown/hidden via radio :checked) ----- */
+.auth-pane {
+  display: none;
+  animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+#tab-signin:checked ~ .auth-content .pane-signin,
+#tab-register:checked ~ .auth-content .pane-register {
+  display: block;
+}
+
+/* ----- FORM CONTROLS (dark) ----- */
+.form-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #a8b2c9;
+  margin-bottom: 0.5rem;
+}
+
+.input-group-text {
+  background: #0d101c;
+  border: 1px solid #232838;
+  color: #e8b923;
+  border-right: none;
+  font-size: 1rem;
+}
+
+.form-control {
+  background: #0d101c;
+  border: 1px solid #232838;
+  color: #f0f2f8;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  border-left: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-control:focus {
+  background: #0d101c;
+  border-color: #e8b923;
+  box-shadow: 0 0 0 0.2rem rgba(232, 185, 35, 0.15);
+  color: #fff;
+}
+
+.form-control::placeholder {
+  color: #5a6378;
+  font-size: 0.9rem;
+}
+
+.input-group:focus-within .input-group-text {
+  border-color: #e8b923;
+}
+
+/* Fix for input group border radius */
+.input-group > .form-control:not(:last-child) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.input-group > .input-group-text:first-child {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.input-group > .form-control:last-child {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+/* Checkbox / small text */
+.form-check-input {
+  background-color: #0d101c;
+  border: 1px solid #2a3044;
+  cursor: pointer;
+}
+
+.form-check-input:checked {
+  background-color: #e8b923;
+  border-color: #e8b923;
+}
+
+.form-check-label {
+  font-size: 0.85rem;
+  color: #8a93a8;
+  cursor: pointer;
+}
+
+.form-check-label a {
+  color: #e8b923;
+  text-decoration: none;
+}
+
+.form-check-label a:hover {
+  text-decoration: underline;
+}
+
+/* ----- BUTTONS (custom) ----- */
+.btn-auth-primary {
+  background: linear-gradient(135deg, #e8b923, #ff6b35);
+  color: #14100a;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.9rem;
+  padding: 0.9rem 2rem;
+  border-radius: 8px;
+  border: none;
+  width: 100%;
+  transition: all 0.25s ease;
+  box-shadow: 0 6px 24px rgba(232, 185, 35, 0.25);
+  font-family: 'Inter', sans-serif;
+}
+
+.btn-auth-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(232, 185, 35, 0.45);
+  background: linear-gradient(135deg, #f0c43a, #ff7b4a);
+  color: #0b0e18;
+}
+
+/* ----- DIVIDER ----- */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: #4a5268;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 1.5rem 0;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #232838, transparent);
+}
+
+/* ----- SOCIAL ICONS (small) ----- */
+.social-row {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.social-btn {
+  background: #0d101c;
+  border: 1px solid #232838;
+  border-radius: 8px;
+  color: #a8b2c9;
+  font-size: 1.2rem;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.social-btn:hover {
+  border-color: #e8b923;
+  color: #e8b923;
+  transform: translateY(-3px);
+  background: rgba(232, 185, 35, 0.05);
+}
+
+/* ----- EXTRAS (small text links) ----- */
+.auth-footer {
+  text-align: center;
+  margin-top: 1.75rem;
+  font-size: 0.9rem;
+  color: #6b748b;
+}
+
+.auth-footer a {
+  color: #e8b923;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.auth-footer a:hover {
+  text-decoration: underline;
+}
+
+/* ----- PASSWORD MISMATCH FEEDBACK ----- */
+.password-match-indicator {
+  font-size: 0.75rem;
+  margin-top: 0.3rem;
+  display: none;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.password-match-indicator.match {
+  color: #4ade80;
+}
+
+.password-match-indicator.mismatch {
+  color: #ff6b6b;
+}
+
+/* Bootstrap validation states override for dark theme */
+.form-control.is-valid {
+  border-color: #4ade80;
+  box-shadow: 0 0 0 0.2rem rgba(74, 222, 128, 0.15);
+}
+
+.form-control.is-invalid {
+  border-color: #ff6b6b;
+  box-shadow: 0 0 0 0.2rem rgba(255, 107, 107, 0.15);
+}
+
+.input-group:has(.form-control.is-valid) .input-group-text {
+  border-color: #4ade80;
+}
+
+.input-group:has(.form-control.is-invalid) .input-group-text {
+  border-color: #ff6b6b;
+}
+
+/* ============================================================
+   BREAKPOINTS
+   ============================================================ */
+
+/* Large tablets / small desktops (≤ 992px) */
+@media (max-width: 992px) {
+  .container {
+    max-width: 480px;
+  }
+  .auth-card {
+    padding: 1.9rem 2rem;
+  }
+}
+
+/* Tablets (≤ 768px) */
+@media (max-width: 768px) {
+  body {
+    padding: 1.5rem 1rem;
+  }
+  .container {
+    max-width: 440px;
+  }
+  .auth-card {
+    padding: 1.75rem 1.75rem;
+  }
+  .brand {
+    font-size: 1.65rem;
+  }
+  .brand i {
+    font-size: 1.75rem;
+  }
+  .auth-tabs label {
+    font-size: 0.85rem;
+    padding: 0.65rem 0.9rem;
+  }
+  .form-control {
+    padding: 0.7rem 0.9rem;
+    font-size: 0.9rem;
+  }
+  .btn-auth-primary {
+    padding: 0.85rem 1.75rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* Large phones (≤ 576px) */
+@media (max-width: 576px) {
+  body {
+    padding: 1.25rem 0.75rem;
+  }
+  .container {
+    max-width: 100%;
+    padding: 0 0.25rem;
+  }
+  .auth-card {
+    padding: 1.5rem 1.25rem;
+    border-radius: 12px;
+  }
+  .brand {
+    font-size: 1.45rem;
+    gap: 0.5rem;
+    margin-bottom: 1.4rem;
+  }
+  .brand i {
+    font-size: 1.55rem;
+  }
+  .auth-tabs {
+    gap: 0.35rem;
+    padding: 0.25rem;
+    margin-bottom: 1.5rem;
+  }
+  .auth-tabs label {
+    font-size: 0.78rem;
+    padding: 0.55rem 0.5rem;
+    letter-spacing: 0.05em;
+  }
+  .form-label {
+    font-size: 0.78rem;
+  }
+  .form-control {
+    padding: 0.65rem 0.85rem;
+    font-size: 0.88rem;
+  }
+  .input-group-text {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.75rem;
+  }
+  .btn-auth-primary {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.82rem;
+    letter-spacing: 0.06em;
+  }
+  .divider {
+    font-size: 0.72rem;
+    margin: 1.25rem 0;
+  }
+  .social-btn {
+    width: 2.6rem;
+    height: 2.6rem;
+    font-size: 1.05rem;
+  }
+  .auth-footer {
+    font-size: 0.82rem;
+    margin-top: 1.4rem;
+  }
+  .form-check-label {
+    font-size: 0.78rem;
+  }
+}
+
+/* Small phones (≤ 400px) */
+@media (max-width: 400px) {
+  body {
+    padding: 1rem 0.5rem;
+  }
+  .auth-card {
+    padding: 1.25rem 1rem;
+    border-radius: 10px;
+  }
+  .brand {
+    font-size: 1.25rem;
+    gap: 0.4rem;
+    margin-bottom: 1.2rem;
+  }
+  .brand i {
+    font-size: 1.35rem;
+  }
+  .auth-tabs {
+    gap: 0.25rem;
+    padding: 0.2rem;
+    margin-bottom: 1.25rem;
+    border-radius: 40px;
+  }
+  .auth-tabs label {
+    font-size: 0.7rem;
+    padding: 0.5rem 0.35rem;
+    letter-spacing: 0.03em;
+  }
+  .auth-tabs label i {
+    display: none; /* Hide icons on very small screens for space */
+  }
+  .form-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+  }
+  .form-control {
+    padding: 0.6rem 0.75rem;
+    font-size: 0.82rem;
+  }
+  .input-group-text {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.6rem;
+  }
+  .btn-auth-primary {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+  }
+  .divider {
+    font-size: 0.65rem;
+    margin: 1rem 0;
+    gap: 0.75rem;
+  }
+  .social-row {
+    gap: 0.65rem;
+  }
+  .social-btn {
+    width: 2.3rem;
+    height: 2.3rem;
+    font-size: 0.95rem;
+    border-radius: 6px;
+  }
+  .auth-footer {
+    font-size: 0.75rem;
+    margin-top: 1.2rem;
+  }
+  .form-check-label {
+    font-size: 0.72rem;
+  }
+  .mb-3 {
+    margin-bottom: 0.85rem !important;
+  }
+  .mb-4 {
+    margin-bottom: 1rem !important;
+  }
+}
+
+/* Very small devices / narrow portrait (≤ 320px) */
+@media (max-width: 320px) {
+  body {
+    padding: 0.75rem 0.35rem;
+  }
+  .auth-card {
+    padding: 1rem 0.75rem;
+    border-radius: 8px;
+  }
+  .brand {
+    font-size: 1.1rem;
+    gap: 0.35rem;
+    margin-bottom: 1rem;
+  }
+  .brand i {
+    font-size: 1.2rem;
+  }
+  .auth-tabs {
+    gap: 0.2rem;
+    padding: 0.15rem;
+    margin-bottom: 1rem;
+    border-radius: 30px;
+  }
+  .auth-tabs label {
+    font-size: 0.62rem;
+    padding: 0.4rem 0.25rem;
+  }
+  .form-label {
+    font-size: 0.68rem;
+  }
+  .form-control {
+    padding: 0.5rem 0.65rem;
+    font-size: 0.78rem;
+  }
+  .input-group-text {
+    font-size: 0.75rem;
+    padding: 0.35rem 0.5rem;
+  }
+  .btn-auth-primary {
+    padding: 0.65rem 1rem;
+    font-size: 0.7rem;
+  }
+  .divider {
+    font-size: 0.6rem;
+    margin: 0.85rem 0;
+  }
+  .social-btn {
+    width: 2rem;
+    height: 2rem;
+    font-size: 0.85rem;
+    border-radius: 5px;
+  }
+  .auth-footer {
+    font-size: 0.68rem;
+    margin-top: 1rem;
+  }
+  .form-check-label {
+    font-size: 0.65rem;
+  }
+}
+
+/* ----- JQUERY VALIDATION ERROR STYLES ----- */
+form .is-invalid {
+  border-color: #ff6b6b !important;
+  box-shadow: 0 0 0 0.2rem rgba(255, 107, 107, 0.15) !important;
+}
+
+form .is-valid {
+  border-color: #4ade80 !important;
+  box-shadow: 0 0 0 0.2rem rgba(74, 222, 128, 0.15) !important;
+}
+
+/* Error message text (below input groups) */
+form label.error {
+  display: block;
+  color: #ff6b6b;
+  font-size: 0.8rem;
+  margin-top: 0.35rem;
+  font-weight: 500;
+}
+
+/* Disabled button state */
+.btn-auth-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Lock message */
+#lockMessage {
+  color: #ff6b6b;
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  text-align: center;
+  padding: 0.5rem;
+  border: 1px solid rgba(255, 107, 107, 0.3);
+  border-radius: 6px;
+  background: rgba(255, 107, 107, 0.08);
+}
+
+/* Remove focus shadow/glow from form controls */
+.form-control:focus {
+  box-shadow: none !important;
+  border-color: #e8b923 !important;
+}
+
+/* Remove focus shadow from input group text icon */
+.input-group:focus-within .input-group-text {
+  box-shadow: none !important;
+}
+
+/* Remove the vertical divider line between icon and input */
+.input-group-text {
+  border-right: none !important;
+}
+
+/* Ensure the input has no left border (already in your code, but just in case) */
+.form-control {
+  border-left: none !important;
+}
+
+/* Remove any outline/shadow on the whole input group */
+.input-group {
+  box-shadow: none !important;
+}
+
+/* ----- DISABLED INPUT OVERRIDES (keep dark, not white) ----- */
+.form-control:disabled,
+.form-control[disabled],
+.form-control[readonly] {
+  background-color: #0d101c !important;
+  color: #f0f2f8 !important;
+  opacity: 1 !important;
+  -webkit-text-fill-color: #f0f2f8 !important;
+  cursor: not-allowed;
+}
+
+/* Disabled input group icon stays dark too */
+.input-group:has(.form-control:disabled) .input-group-text {
+  background-color: #0d101c !important;
+  color: #e8b923 !important;
+  opacity: 1 !important;
+}
+
+/* Disabled button keeps its gradient look but dimmed */
+.btn-auth-primary:disabled,
+.btn-auth-primary[disabled] {
+  background: linear-gradient(135deg, #e8b923, #ff6b35) !important;
+  color: #14100a !important;
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
